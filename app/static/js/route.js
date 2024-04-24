@@ -29,3 +29,35 @@ function loadView(url, addHistory) {
         });
 }
 
+function attachEventListeners() {
+    // Lier les gestionnaires d'événements à différents éléments de la page
+    // Exemple :
+    // document.getElementById("loginForm").addEventListener("submit", function(event) {
+    //     event.preventDefault();
+    //     // Autres actions à effectuer lors de la soumission du formulaire
+    // });
+}
+
+function setupActionsForURL(url) {
+    if (url === '/index/') {
+        setupIndex();
+    } else if (url === '/friends/') {
+        setupFriends();
+    } else if (url === '/gamepage/') {
+        setupGamepage();
+    } else if (url === '/ia/') {
+        setupIa();
+    } else if (url === '/register/') {
+        setupRegister();
+    } else if (url === '/profile/') {
+        setupProfile();
+    } else if (url === '/tournaments/') {
+        setupTournaments();
+    } else if (url === '/tournaments_overview/') {
+        setupTournamentsOverview();
+    } else if (url === '/welcome/') {
+        setupWelcome();
+    } else if (url === '/settings/') {
+        setupSettings();
+    }
+}
