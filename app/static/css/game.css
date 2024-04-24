@@ -1,0 +1,19 @@
+body {
+    background-color: #1F1D1D;
+}
+
+div.container h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8vw;
+    font-weight: bolder;
+    color: #f8f8f8;
+    margin: -5px 100px 0px -300px;
+}
+
+canvas {
+    width: 50%;
+    border:2px solid #fff;
+    display: block;
+    margin: 5% auto;
+    background-color: #171515;
+}
