@@ -6,50 +6,26 @@ function extractViewContent(html) {
 }
 
 function loadView(url, addHistory) {
-	let actual = location.pathname;
-	var isAuthenticated = document.getElementById('auth-data').getAttribute('data-authenticated') === 'True';
-	if ((!isAuthenticated && (url == '/login/' || url == '/register/' || url == '/')) || isAuthenticated) {
-		fetch(url)
-		.then(response => response.text())
-		.then(html => {
-			if (addHistory == true && actual != url) {
-				if (url.startsWith('/profile/')) {
-					let queryParams = url.substring(url.indexOf('?'));
-					history.pushState({id: queryParams}, null, url);
-				}
-				else
-					history.pushState(null, null, url);
-			}
-		document.querySelector('#content').innerHTML = extractViewContent(html);
-		if (url == '/index/')
-			setupIndex();
-		else if (url == '/friends/')
-			setupFriends();
-		else if (url == '/gamepage/')
-			setupGamepage();
-		else if (url == '/ia/')
-			setupIa();
-		else if (url == '/register/')
-			setupRegister();
-		else if (url == '/profile/')
-			setupProfile();
-		else if (url == '/tournaments/')
-			SetupTournaments();
-        else if (url == '/tournaments_overview/')
-			setupTournaments_overview();
-        else if (url == '/welcome/')
-			setupWelcome();
-        else if (url == '/settings/')
-			setupSettings();
-		attachEventListeners(); // fonction pas creer, a creer par chatgpt
-		})
-		.catch(error => {
-			console.error('Erreur lors du chargement de la vue:', error);
-		});
-	}
-	else {
-		if (actual != '/login/')
-			loadView('/login/', true);
-	}
+    // Récupération du contenu des vues à partir du serveur Django
+    fetch(url)
+        .then(response => response.text())
+        .then(html => {
+            // Mise à jour de l'URL et de l'historique de navigation si nécessaire
+            if (addHistory) {
+                history.pushState(null, null, url);
+            }
+
+            // Mise à jour du contenu de la page avec le contenu de la vue récupéré
+            document.querySelector('#content').innerHTML = extractViewContent(html);
+
+            // Attachement des écouteurs d'événements spécifiques à la vue chargée
+            attachEventListeners();
+
+            // Optionnel : Mise en place des actions spécifiques en fonction de l'URL chargée
+            setupActionsForURL(url);
+        })
+        .catch(error => {
+            console.error('Erreur lors du chargement de la vue:', error);
+        });
 }
 
